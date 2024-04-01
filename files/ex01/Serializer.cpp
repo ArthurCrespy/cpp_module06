@@ -27,15 +27,15 @@ Serializer &Serializer::operator=(const Serializer &rhs)
 	return (*this);
 }
 
-uniptr_t Serializer::serialize(Data* ptr)
+uintptr_t Serializer::serialize(Data* ptr)
 {
-	uniptr_t raw = 0;
+	uintptr_t raw = 0;
 
-	raw = reinterpret_cast<uniptr_t>(ptr);
+	raw = reinterpret_cast<uintptr_t>(ptr);
 	return (raw);
 }
 
-Data* Serializer::deserialize(uniptr_t raw)
+Data* Serializer::deserialize(uintptr_t raw)
 {
 	return (reinterpret_cast<Data*>(raw));
 }
