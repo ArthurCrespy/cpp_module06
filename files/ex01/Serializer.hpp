@@ -14,7 +14,6 @@
 # define SERIALIZER_HPP
 
 # include <stdint.h>
-
 # include "Data.hpp"
 
 class Serializer
@@ -27,9 +26,8 @@ class Serializer
 		Serializer &operator=(Serializer const &rhs);
 
 	public:
-		static uintptr_t serialize(Data* ptr);
-		static Data* deserialize(uintptr_t raw);
-
+		static uintptr_t	serialize(Data* ptr);
+		static Data*		deserialize(uintptr_t raw);
 };
 
 #endif
