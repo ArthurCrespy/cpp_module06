@@ -19,6 +19,7 @@ int main()
 	base = generate();
 	identify(base);
 	identify(*base);
-	return (0);
 
+	delete (base);
+	return (0);
 }

@@ -14,7 +14,7 @@
 #ifndef MAIN_H
 # define MAIN_H
 
-#include "Base.hpp"
+# include "Base.hpp"
 
 Base	*generate(void);
 void	identify(Base* p);
