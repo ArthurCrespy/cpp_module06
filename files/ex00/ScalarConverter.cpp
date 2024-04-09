@@ -23,13 +23,14 @@ ScalarConverter::~ScalarConverter(void) {}
 
 ScalarConverter &ScalarConverter::operator=(ScalarConverter const &rhs)
 {
-	if (this != &rhs) {}
+	if (this != &rhs)
+	{}
 	return (*this);
 }
 
 void ScalarConverter::convertSpecial(const char *str)
 {
-	if (strlen(str) == 3 && str[0] == '\'' && str[2] == '\'')
+	if (std::strlen(str) == 3 && str[0] == '\'' && str[2] == '\'')
 	{
 		if (std::isprint(str[1]))
 			std::cout << "Char: " << str[1] << std::endl;
@@ -66,13 +67,19 @@ void ScalarConverter::convertNumeric(const char *str)
 	double		doubleVal;
 	float		floatVal;
 	
-	if (str[strlen(str) - 1] == 'f')
+	if (str[std::strlen(str) - 1] == 'f')
 	{
 		floatVal = static_cast<float>(std::atof(str));
+		if (floatVal == 0.0f && std::strcmp(str, "-0f") != 0 && std::strcmp(str, "+0f") != 0 && std::strcmp(str, "0f") != 0
+			&& std::strcmp(str, "-0.0f") != 0 && std::strcmp(str, "+0.0f") != 0 && std::strcmp(str, "0.0f") != 0)
+		{
+			std::cout << "Invalid str" << std::endl;
+			return ;
+		}
 		if (std::strstr(str, "f") == str + strlen(str) - 1)
 		{
 			std::cout << "Float: " << floatVal << std::endl;
-			return;
+			return ;
 		}
 	}
 	longVal = std::strtol(str, &endPtr, 10);
@@ -93,11 +100,13 @@ void ScalarConverter::convert(const std::string &input)
 	const char	*str;
 
 	str = input.c_str();
-    if ((input.size() == 3 && str[0] == '\'' && str[2] == '\'') ||
-        (std::strcmp(str, "-inf") == 0 || std::strcmp(str, "+inf") == 0 || std::strcmp(str, "inf") == 0) ||
-        (std::strcmp(str, "-inff") == 0 || std::strcmp(str, "+inff") == 0 || std::strcmp(str, "inff") == 0) ||
-        (input == "nan" || input == "-nan"))
-        convertSpecial(str);
-    else
-        convertNumeric(str);
+	if (input.size() == 0)
+		std::cout << "Invalid str" << std::endl;
+	else if ((input.size() == 3 && str[0] == '\'' && str[2] == '\'') ||
+		(std::strcmp(str, "-inf") == 0 || std::strcmp(str, "+inf") == 0 || std::strcmp(str, "inf") == 0) ||
+		(std::strcmp(str, "-inff") == 0 || std::strcmp(str, "+inff") == 0 || std::strcmp(str, "inff") == 0) ||
+		(input == "nan" || input == "-nan"))
+		convertSpecial(str);
+	else
+		convertNumeric(str);
 }

@@ -14,6 +14,9 @@
 # define SCALARCONVERTER_HPP
 
 # include <iostream>
+# include <cstring>
+# include <cctype>
+# include <cstdlib>
 
 class ScalarConverter
 {
