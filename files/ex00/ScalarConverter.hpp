@@ -14,9 +14,7 @@
 # define SCALARCONVERTER_HPP
 
 # include <iostream>
-# include <cstring>
-# include <cctype>
-# include <cstdlib>
+# include <sstream>
 
 class ScalarConverter
 {
@@ -27,11 +25,18 @@ class ScalarConverter
 
 		ScalarConverter &operator=(ScalarConverter const &rhs);
 
-		static void convertSpecial(const char *str);
-		static void convertNumeric(const char *str);
+		static bool isChar(std::string str);
+		static bool isInt(std::string str);
+		static bool isFloat(std::string str);
+		static bool isDouble(std::string str);
+
+		static void toChar(std::string str);
+		static void toInt(std::string str);
+		static void toFloat(std::string str);
+		static void toDouble(std::string str);
 
 	public:
-		static void convert(std::string const &input);
+		static void convert(std::string const str);
 };
 
 #endif

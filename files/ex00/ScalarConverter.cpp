@@ -28,85 +28,21 @@ ScalarConverter &ScalarConverter::operator=(ScalarConverter const &rhs)
 	return (*this);
 }
 
-void ScalarConverter::convertSpecial(const char *str)
+void	ScalarConverter::convert(std::string str)
 {
-	if (std::strlen(str) == 3 && str[0] == '\'' && str[2] == '\'')
+	if (str.empty())
 	{
-		if (std::isprint(str[1]))
-			std::cout << "Char: " << str[1] << std::endl;
-		else
-			std::cout << "Non-displayable character" << std::endl;
+		std::cout << "Error : Invalid parameter" << std::endl;
+		return ;
 	}
-	else if (std::strcmp(str, "-inf") == 0 || std::strcmp(str, "+inf") == 0 || std::strcmp(str, "inf") == 0)
-	{
-		if (std::strcmp(str, "-inf") == 0)
-			std::cout << "Double: -infinity" << std::endl;
-		else
-			std::cout << "Double: infinity" << std::endl;
-	}
-	else if (std::strcmp(str, "-inff") == 0 || std::strcmp(str, "+inff") == 0 || std::strcmp(str, "inff") == 0)
-	{
-		if (std::strcmp(str, "-inff") == 0)
-			std::cout << "Float: -infinity" << std::endl;
-		else
-			std::cout << "Float: infinity" << std::endl;
-	}
-	else if (std::strcmp(str, "nan") == 0 || std::strcmp(str, "-nan") == 0)
-	{
-		if (std::strcmp(str, "-nan") == 0)
-			std::cout << "Double: -NaN" << std::endl;
-		else
-			std::cout << "Double: NaN" << std::endl;
-	}
-}
-
-void ScalarConverter::convertNumeric(const char *str)
-{	
-	char		*endPtr;
-	long		longVal;
-	double		doubleVal;
-	float		floatVal;
-	
-	if (str[std::strlen(str) - 1] == 'f')
-	{
-		floatVal = static_cast<float>(std::atof(str));
-		if (floatVal == 0.0f && std::strcmp(str, "-0f") != 0 && std::strcmp(str, "+0f") != 0 && std::strcmp(str, "0f") != 0
-			&& std::strcmp(str, "-0.0f") != 0 && std::strcmp(str, "+0.0f") != 0 && std::strcmp(str, "0.0f") != 0)
-		{
-			std::cout << "Invalid str" << std::endl;
-			return ;
-		}
-		if (std::strstr(str, "f") == str + strlen(str) - 1)
-		{
-			std::cout << "Float: " << floatVal << std::endl;
-			return ;
-		}
-	}
-	longVal = std::strtol(str, &endPtr, 10);
-	if (*endPtr == '\0')
-		std::cout << "Int: " << longVal << std::endl;
+	if (isChar(str))
+		toChar(str);
+	else if (isInt(str))
+		toInt(str);
+	else if (isFloat(str))
+		toFloat(str);
+	else if (isDouble(str))
+		toDouble(str);
 	else
-	{
-		doubleVal = std::strtod(str, &endPtr);
-		if (*endPtr == '\0')
-			std::cout << "Double: " << doubleVal << std::endl;
-		else
-			std::cout << "Invalid str" << std::endl;
-	}
-}
-
-void ScalarConverter::convert(const std::string &input)
-{
-	const char	*str;
-
-	str = input.c_str();
-	if (input.size() == 0)
-		std::cout << "Invalid str" << std::endl;
-	else if ((input.size() == 3 && str[0] == '\'' && str[2] == '\'') ||
-		(std::strcmp(str, "-inf") == 0 || std::strcmp(str, "+inf") == 0 || std::strcmp(str, "inf") == 0) ||
-		(std::strcmp(str, "-inff") == 0 || std::strcmp(str, "+inff") == 0 || std::strcmp(str, "inff") == 0) ||
-		(input == "nan" || input == "-nan"))
-		convertSpecial(str);
-	else
-		convertNumeric(str);
+		std::cout << "Error : Invalid input" << std::endl;
 }

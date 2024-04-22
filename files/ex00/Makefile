@@ -13,6 +13,7 @@
 NAME        := convert
 
 SRCS		:= \
+				Converter.cpp \
 				main.cpp \
 				ScalarConverter.cpp \
 
